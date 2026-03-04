@@ -4,6 +4,9 @@ v1/keys.txt
 
 v1/testing
 
-v1/__pycache__
-
 v1/failed_models
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
