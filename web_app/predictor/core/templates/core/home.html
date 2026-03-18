@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Stock price predictor</title>
 </head>
 <body>
-    <h1>Simple Home page</h1>
+    <div class="input">
+        <form method = "GET">
+            <input type = "text" name = 'ticker' placeholder = "e.g. 'AAPL' or 'Apple' ">
+            <br>
+            <label for="ticker">Enter the stock name or the stock symbol </label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    {% if data %}
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+        </tr>
+
+        {% for row in data %}
+        <tr>
+            <td>{{ row.date }}</td>
+            <td>{{ row.open }}</td>
+            <td>{{ row.high }}</td>
+            <td>{{ row.low }}</td>
+            <td>{{ row.close }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
 </body>
 </html>
