@@ -7,9 +7,6 @@ def gen_future_prices(window_size, last_sequence, model, scaler) :
 
     future_pred = []
 
-    last_sequence = np.array(last_sequence)
-    last_sequence = np.expand_dims(last_sequence, axis = 0)
-
     current_window = last_sequence.copy()
 
     for _ in range(window_size) : 
