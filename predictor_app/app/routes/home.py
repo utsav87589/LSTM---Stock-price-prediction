@@ -4,7 +4,15 @@ from flask import Blueprint, render_template, request, url_for, redirect
 home_bp = Blueprint('home', __name__)
 
 ### main home route
-@home_bp.route('/')
+@home_bp.route('/', methods = ['GET', 'POST'])
 def home() : 
+
+    if request.method == 'POST' : 
+        ticker = request.form.get('ticker')
+
+        # print(f"ticker entered : {ticker}")
+
+        return redirect(url_for('predictions.predictions'))
+
 
     return render_template('home.html')
