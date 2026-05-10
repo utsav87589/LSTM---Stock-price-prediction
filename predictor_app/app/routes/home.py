@@ -10,9 +10,9 @@ def home() :
     if request.method == 'POST' : 
         ticker = request.form.get('ticker')
 
-        # print(f"ticker entered : {ticker}")
+        print(f"ticker entered : {ticker}")
 
-        return redirect(url_for('predictions.predictions'))
+        return redirect(url_for('predictions.predictions', ticker = ticker))
 
 
     return render_template('home.html')

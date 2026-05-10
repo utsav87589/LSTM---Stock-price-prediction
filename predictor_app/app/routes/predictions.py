@@ -1,9 +1,16 @@
 from flask import Blueprint, render_template, request, url_for, redirect
+from ..logic.data_fetcher import get_plot_data
 
 predictions_bp = Blueprint('predictions', __name__)
 
 ### defining the predictions route
-@predictions_bp.route('/predictions')
-def predictions() : 
+@predictions_bp.route('/predictions/<ticker>')
+def predictions(ticker) : 
 
-    return render_template('/predictions.html')
+    graph = get_plot_data(ticker)
+
+    return render_template(
+        '/predictions.html',
+        ticker = ticker,
+        graph = graph
+        )
