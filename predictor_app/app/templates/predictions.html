@@ -2,6 +2,27 @@
 
 {% block content %}
 
-<h1>Predictions</h1>
+<h1>Predictions for {{ ticker }}</h1>
+
+<div id="main-chart" style="height: 600px;"></div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<script>
+    // We pass the whole dictionary into JavaScript
+    var allCharts = {
+        {% for feature, graph_json in graphs.items() %}
+            "{{ feature }}": {{ graph_json | safe }}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    // Now loop through the JS object and render each one
+    for (var feature in allCharts) {
+        var containerId = 'chart-' + feature;
+        var data = allCharts[feature];
+        
+        Plotly.newPlot(containerId, data.data, data.layout);
+    }
+</script>
 
 {% endblock %}
