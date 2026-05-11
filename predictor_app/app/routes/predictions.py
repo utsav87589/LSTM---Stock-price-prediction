@@ -7,10 +7,10 @@ predictions_bp = Blueprint('predictions', __name__)
 @predictions_bp.route('/predictions/<ticker>')
 def predictions(ticker) : 
 
-    graph = get_plot_data(ticker)
+    graphs = get_plot_data(ticker)
 
     return render_template(
         '/predictions.html',
         ticker = ticker,
-        graph = graph
+        graphs = graphs
         )
