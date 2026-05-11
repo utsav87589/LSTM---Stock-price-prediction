@@ -4,24 +4,26 @@
 
 <h1>Predictions for {{ ticker }}</h1>
 
-<div id="main-chart" style="height: 600px;"></div>
-
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+{% for feature in graphs.keys() %}
+    <h3>{{ feature }} for {{ ticker }}</h3>
+    <div id="chart-{{ feature }}" style="width:100%; height:400px;"></div>
+{% endfor %}
+
 <script>
-    // We pass the whole dictionary into JavaScript
+    // Iterating through the graphs dictionary passed from Flask
     var allCharts = {
         {% for feature, graph_json in graphs.items() %}
-            "{{ feature }}": {{ graph_json | safe }}{% if not loop.last %},{% endif %}
+            "{{ feature }}": JSON.parse({{ graph_json | tojson | safe }}){% if not loop.last %},{% endif %}
         {% endfor %}
     };
 
-    // Now loop through the JS object and render each one
     for (var feature in allCharts) {
         var containerId = 'chart-' + feature;
-        var data = allCharts[feature];
-        
-        Plotly.newPlot(containerId, data.data, data.layout);
+        var figure = allCharts[feature];
+        // Plotly expects the parsed data and layout objects
+        Plotly.newPlot(containerId, figure.data, figure.layout);
     }
 </script>
 
